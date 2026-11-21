@@ -1,1 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotto Dhaka - Download App</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+        :root {
+            --primary-green: #00875A;
+            --bg-color: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 80px; /* For fixed button */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* App Header */
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            pointer-events: none; /* Prevents right click/save */
+        }
+
+        .app-info h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .app-info p {
+            font-size: 14px;
+            color: var(--primary-green);
+            font-weight: 500;
+        }
+
+        .verified-text {
+            color: #666; 
+            font-size: 12px; 
+            margin-top: 4px;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-item:not(:last-child) {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .star-icon {
+            color: #FFB800;
+            font-size: 14px;
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-green);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 135, 90, 0.3);
+            transition: background 0.3s;
+        }
+
+        .download-btn:active {
+            background-color: #006b47;
+        }
+
+        .download-btn span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* App Screenshots */
+        .screenshots {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .screenshots::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .screenshots img {
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            pointer-events: none; /* Prevents right click/save */
+        }
+
+        /* About Section */
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+
+        /* Review Section */
+        .review-section {
+            margin-bottom: 30px;
+        }
+
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .big-rating {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .rating-bars {
+            flex: 1;
+        }
+
+        .rating-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .bar-bg {
+            flex: 1;
+            height: 6px;
+            background-color: var(--border-color);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background-color: var(--primary-green);
+            border-radius: 3px;
+        }
+
+        /* User Reviews */
+        .user-review {
+            border-top: 1px solid var(--border-color);
+            padding: 15px 0;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #ccc;
+            object-fit: cover;
+            pointer-events: none; /* Prevents right click/save */
+        }
+
+        .review-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+
+        .review-stars {
+            color: #FFB800;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        /* Fixed Bottom Button */
+        .sticky-download {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .sticky-download a {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--primary-green);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- App Header -->
+        <div class="app-header">
+            <img src="https://project-sql-lifeline.github.io/Play-Store-Page/apps-icon.png" alt="App Icon" class="app-icon">
+            <div class="app-info">
+                <!-- নাম পরিবর্তন করা হয়েছে -->
+                <h1>Lotto Dhaka</h1>
+                <p>Lotto Dhaka Bangladesh</p>
+                <p class="verified-text">App Verified</p>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-value">4.9 <span class="star-icon">★</span></div>
+                <div class="stat-label">291,037 Reviews</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">500K+</div>
+                <div class="stat-label">Downloads</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">18+</div>
+                <div class="stat-label">Age Limit</div>
+            </div>
+        </div>
+
+        <!-- Main Download Button -->
+        <a href="#" class="download-btn" id="downloadBtn">
+            ⚡ Fast Install
+            <span>15 Seconds Download</span>
+        </a>
+
+        <!-- Screenshots -->
+        <div class="screenshots">
+            <img src="https://placehold.co/300x500/183f35/FFF?text=Jackpot+1M" alt="Screenshot 1">
+            <img src="https://placehold.co/300x500/183f35/FFF?text=Daily+Bonus" alt="Screenshot 2">
+            <img src="https://placehold.co/300x500/183f35/FFF?text=Win+Real+Cash" alt="Screenshot 3">
+        </div>
+
+        <!-- About Section -->
+        <div class="section-title">About this App</div>
+        <div class="about-text">
+🔥 4.9 Star Rating, the best platform for live lottery and cash-out games!
+💎 <b>Welcome Bonus:</b> Get 500 BDT free bonus for new users!
+💰 <b>Daily Reward:</b> Log in daily and win up to 77 BDT.
+💸 <b>Minimum Withdraw:</b> Only 200 BDT.
+🤑 <b>Refer & Earn:</b> Invite your friends and get up to 50 BDT commission.
+🔒 100% Safe & Trusted platform. 24/7 Customer Support.
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="review-section">
+            <div class="section-title">Ratings & Reviews</div>
+            
+            <div class="rating-summary">
+                <div style="text-align: center;">
+                    <div class="big-rating">4.9</div>
+                    <div class="review-stars" style="font-size: 16px;">★★★★★</div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">291,037</div>
+                </div>
+                <div class="rating-bars">
+                    <div class="rating-bar-row"><span>5</span><div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div></div>
+                    <div class="rating-bar-row"><span>4</span><div class="bar-bg"><div class="bar-fill" style="width: 10%;"></div></div></div>
+                    <div class="rating-bar-row"><span>3</span><div class="bar-bg"><div class="bar-fill" style="width: 5%;"></div></div></div>
+                    <div class="rating-bar-row"><span>2</span><div class="bar-bg"><div class="bar-fill" style="width: 2%;"></div></div></div>
+                    <div class="rating-bar-row"><span>1</span><div class="bar-bg"><div class="bar-fill" style="width: 1%;"></div></div></div>
+                </div>
+            </div>
+
+            <!-- Dynamic Reviews Container -->
+            <div id="reviews-container">
+                <!-- Initial Reviews (These will be at the top and new ones will be added below/above) -->
+                <div class="user-review">
+                    <div class="review-header">
+                        <img src="https://xp3ec4r6j3a.com/images/download/reviews/br-1.jpeg" class="user-avatar" alt="Miguel">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Miguel</div>
+                            <div class="review-stars">★★★★★</div>
+                        </div>
+                        <div class="review-date">March 7, 2026</div>
+                    </div>
+                    <div class="review-text">Fun games with huge bonuses. The withdrawal option works very fast.</div>
+                </div>
+
+                <div class="user-review">
+                    <div class="review-header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH91Xwslt3oWH0H_W9lBspZv-lkUJWws6YgGmwWNyIDppQX24bMv2igseW&s=10" class="user-avatar" alt="Jose">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Jose</div>
+                            <div class="review-stars">★★★★★</div>
+                        </div>
+                        <div class="review-date">January 5, 2026</div>
+                    </div>
+                    <div class="review-text">Very fun casual game, you can also earn money from it.</div>
+                </div>
+                
+                <div class="user-review">
+                    <div class="review-header">
+                        <img src="https://xp3ec4r6j3a.com/images/download/reviews/br-2.jpeg" class="user-avatar" alt="Arik">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Arik</div>
+                            <div class="review-stars">★★★★☆</div>
+                        </div>
+                        <div class="review-date">February 2, 2026</div>
+                    </div>
+                    <div class="review-text">The game is good, but withdrawals take a little time. Overall gameplay is amazing.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Bottom Download Button -->
+    <div class="sticky-download">
+        <a href="#" id="stickyDownloadBtn">Download APK</a>
+    </div>
+
+    <script>
+        // Prevent Right Click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // ⚠️ আপনার নতুন GitHub ডিরেক্ট ডাউনলোড লিংক এখানে বসানো হয়েছে
+        const downloadUrl = "https://github.com/Project-SQL-LifeLine/Play-Store-Page/releases/download/Lotto-Dhaka02/lotto-dhaka.apk"; 
+        
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = downloadUrl;
+        });
+
+        document.getElementById('stickyDownloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = downloadUrl;
+        });
+
+        // ==========================================
+        // ডাইনামিক রিভিউ যোগ করার স্ক্রিপ্ট (প্রতি ২-৫ সেকেন্ডে)
+        // ==========================================
+        
+        const names = ["Rahim", "Karim", "Sabbir", "Tanvir", "Fahim", "Nayeem", "Rifat", "Hasan", "Mahmud", "Sakib", "Jamil", "Rony", "Anik", "Shakil", "Arman"];
+        const comments = [
+            "Best lottery app in Bangladesh! Withdrawal is super fast.",
+            "I got my bonus instantly. Highly recommended!",
+            "Very easy to play and win. Love this app.",
+            "Customer support is very helpful. 5 stars!",
+            "I won 500 taka today! Amazing app.",
+            "Trusted platform. Never had an issue with withdrawal.",
+            "The daily bonus is great. Keep up the good work.",
+            "Superb graphics and smooth gameplay.",
+            "Best app for earning some extra cash.",
+            "Bkash withdrawal is instant. Just wow!",
+            "I play daily. It's very addictive and fun.",
+            "Refer your friends and get commission. Works perfectly.",
+            "Secure and safe. No fake promises.",
+            "The best lottery game I have ever played.",
+            "Got my welcome bonus of 500 BDT easily."
+        ];
+        
+        // ব্ল্যাক-হোয়াইট অ্যাভাটার জেনারেট করার ফাংশন (র‍্যান্ডম ইউজারদের জন্য)
+        function getRandomAvatar(name) {
+            return `https://ui-avatars.com/api/?name=${name}&background=random&color=fff&size=100`;
+        }
+
+        function addRandomReview() {
+            const reviewsContainer = document.getElementById('reviews-container');
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomComment = comments[Math.floor(Math.random() * comments.length)];
+            const avatarUrl = getRandomAvatar(randomName);
+            
+            // র‍্যান্ডম ডেট জেনারেট (আজকের দিন থেকে সাম্প্রতিক)
+            const today = new Date();
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            const randomDate = today.toLocaleDateString('en-US', options);
+
+            // নতুন রিভিউ HTML তৈরি
+            const newReview = document.createElement('div');
+            newReview.className = 'user-review';
+            newReview.innerHTML = `
+                <div class="review-header">
+                    <img src="${avatarUrl}" class="user-avatar" alt="${randomName}">
+                    <div>
+                        <div style="font-weight: 600; font-size: 14px;">${randomName}</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-date">${randomDate}</div>
+                </div>
+                <div class="review-text">${randomComment}</div>
+            `;
+
+            // নতুন রিভিউটি সবার উপরে যুক্ত হবে
+            reviewsContainer.insertBefore(newReview, reviewsContainer.firstChild);
+
+            // মেমোরি বাঁচানোর জন্য পুরোনো রিভিউ ডিলিট করা (সর্বোচ্চ ১০টি থাকবে)
+            if (reviewsContainer.children.length > 10) {
+                reviewsContainer.removeChild(reviewsContainer.lastChild);
+            }
+
+            // পরবর্তী রিভিউ কখন আসবে তা র‍্যান্ডমলি ঠিক করা (২ থেকে ৫ সেকেন্ড)
+            const nextTime = Math.floor(Math.random() * (5000 - 2000 + 1)) + 2000;
+            setTimeout(addRandomReview, nextTime);
+        }
+
+        // প্রথম রিভিউটি ২ সেকেন্ড পর শুরু হবে
+        setTimeout(addRandomReview, 2000);
+    </script>
+</body>
+</html>
